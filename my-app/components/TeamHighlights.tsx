@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-// import { API } from "@/config/api";
+import { API } from "@/config/api";
 
 interface TeamMember {
   id: number; name: string; role: string; description: string; imageUrl: string; tokenNo: number;
@@ -11,23 +11,23 @@ interface TeamMember {
 const TeamHighlights = () => {
   const [team, setTeam] = useState<TeamMember[]>([]);
 
-  // useEffect(() => {
-  //   const fetchTeam = async () => {
-  //     try {
-  //       const res = await fetch(API.TEAM);
-  //       if (res.ok) {
-  //         const data: TeamMember[] = await res.json();
-  //         // Show president and core team (tokenNo 1 & 2), limit to 4
-  //         const highlights = data
-  //           .filter(m => m.tokenNo === 1 || m.tokenNo === 2)
-  //           .sort((a, b) => a.tokenNo - b.tokenNo)
-  //           .slice(0, 4);
-  //         setTeam(highlights.length > 0 ? highlights : data.slice(0, 4));
-  //       }
-  //     } catch (err) { console.error("Failed to fetch team:", err); }
-  //   };
-  //   fetchTeam();
-  // }, []);
+  useEffect(() => {
+    const fetchTeam = async () => {
+      try {
+        const res = await fetch(API.TEAM);
+        if (res.ok) {
+          const data: TeamMember[] = await res.json();
+          // Show president and core team (tokenNo 1 & 2), limit to 4
+          const highlights = data
+            .filter(m => m.tokenNo === 1 || m.tokenNo === 2)
+            .sort((a, b) => a.tokenNo - b.tokenNo)
+            .slice(0, 4);
+          setTeam(highlights.length > 0 ? highlights : data.slice(0, 4));
+        }
+      } catch (err) { console.error("Failed to fetch team:", err); }
+    };
+    fetchTeam();
+  }, []);
 
   if (team.length === 0) return null;
 

@@ -1,7 +1,7 @@
 "use client"
 import { useState, useRef, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
-import picselLogo from "@/assets/picsel-logo.png";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Instagram, Linkedin, Github } from "lucide-react";
 
 const menuItems = [
@@ -19,7 +19,7 @@ const menuItems = [
     path: "/events",
     dropdown: [
       { name: "Upcoming Events", path: "/events", description: "See what's next on our calendar." },
-      { name: "Successful Events", path: "/xevents", description: "Browse our past events gallery." },
+      { name: "Successful Events", path: "/events/past", description: "Browse our past events gallery." },
     ],
   },
   { name: "Team", path: "/team" },
@@ -29,13 +29,13 @@ const menuItems = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const leaveTimeout = useRef<ReturnType<typeof setTimeout>>();
-  const location = useLocation();
+  const leaveTimeout = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const pathname = usePathname();
 
   useEffect(() => {
     setIsOpen(false);
     setActiveDropdown(null);
-  }, [location.pathname]);
+  }, [pathname]);
 
   const handleMouseEnter = (name: string) => {
     clearTimeout(leaveTimeout.current);
@@ -58,8 +58,8 @@ const Navbar = () => {
           onMouseLeave={handleMouseLeave}
         >
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <img src={picselLogo} alt="PICSEL Club" className="h-9 w-9 rounded-full object-cover" />
+          <Link href="/" className="flex items-center gap-2">
+            <img src="/picsel-logo.png" alt="PICSEL Club" className="h-9 w-9 rounded-full object-cover" />
             <div className="leading-none">
               <span className="block text-sm font-extrabold tracking-tight text-foreground font-heading">PICSEL</span>
               <span className="block text-[9px] font-medium uppercase tracking-[2px] text-muted-foreground">KDKCE</span>
@@ -83,9 +83,9 @@ const Navbar = () => {
             {menuItems.map((item) => (
               <Link
                 key={item.name}
-                to={item.path}
+                href={item.path}
                 onMouseEnter={() => handleMouseEnter(item.name)}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors whitespace-nowrap ${location.pathname === item.path
+                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors whitespace-nowrap ${pathname === item.path
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                   }`}
@@ -129,7 +129,7 @@ const Navbar = () => {
             {currentDropdown.map((item, i) => (
               <Link
                 key={i}
-                to={item.path}
+                href={item.path}
                 className="rounded-xl p-4 transition-colors hover:bg-muted/50"
               >
                 <span className="block text-sm font-medium text-foreground">{item.name}</span>

@@ -1,7 +1,8 @@
 "use client"
-import { Instagram, Linkedin, Github, Twitter, Mail, Phone } from "lucide-react";
+import { Instagram, Linkedin, Github, Twitter, Mail, Phone, LucideProps } from "lucide-react";
+import { ComponentType } from "react";
 
-const iconMap: Record<string, React.FC<{ className?: string }>> = {
+const iconMap: Record<string, ComponentType<LucideProps>> = {
   instagram: Instagram,
   linkedin: Linkedin,
   github: Github,

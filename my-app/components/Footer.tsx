@@ -14,7 +14,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-3 mb-3 sm:mb-4">
-              <Image src='favicon.png' alt="PICSEL" className="h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-border" />
+              <Image width={48} height={48} src='/picsel-logo.png' alt="PICSEL" className="h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-border" />
               <div>
                 <span className="block text-base sm:text-lg font-extrabold tracking-tight text-foreground font-heading">PICSEL</span>
                 <span className="block text-[9px] sm:text-[10px] uppercase tracking-[2px] text-muted-foreground">KDKCE</span>
@@ -37,7 +37,7 @@ const Footer = () => {
                 { name: "Home", path: "/" },
                 { name: "About", path: "/about" },
                 { name: "Events", path: "/events" },
-                { name: "Past Events", path: "/xevents" },
+                { name: "Past Events", path: "/events/past" },
                 { name: "Team", path: "/team" },
               ].map((link) => (
                 <Link key={link.name} href={link.path} className="text-xs sm:text-sm text-muted-foreground transition-colors hover:text-primary flex items-center gap-1 group">
@@ -69,10 +69,10 @@ const Footer = () => {
             <h4 className="mb-3 sm:mb-4 text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-foreground font-heading">Connect</h4>
             <div className="flex flex-wrap gap-2 sm:gap-3">
               {[
-                { name: "Instagram", icon: <Image src='instagram.svg' alt='instagram' />, url: "#" },
-                { name: "LinkedIn", icon: <Image src='linkedin.svg' alt='linkedin' />, url: "#" },
-                { name: "GitHub", icon: <Image src='github.svg' alt='github' />, url: "#" },
-                { name: "Twitter", icon: <Image src='twitter.svg' alt='twitter' />, url: "#" },
+                { name: "Instagram", icon: <Image width={20} height={20} src='/instagram.svg' alt='instagram' />, url: "#" },
+                { name: "LinkedIn", icon: <Image width={20} height={20} src='/linkedin.svg' alt='linkedin' />, url: "#" },
+                { name: "GitHub", icon: <Image width={20} height={20} src='/github.svg' alt='github' />, url: "#" },
+                { name: "Twitter", icon: <Image width={20} height={20} src='/twitter.svg' alt='twitter' />, url: "#" },
               ].map((social) => (
                 <a
                   key={social.name}

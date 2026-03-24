@@ -1,9 +1,9 @@
 "use client"
 import { useState, useEffect, useCallback } from "react";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
-import picselLogo from "@/assets/picsel-logo.png";
 import Link from "next/link";
 import Image from "next/image";
+import { API } from "@/config/api";
 
 const heroImages = [
   { src: '/heroimg/hero1.jpg', label: "Gaming" },
@@ -23,20 +23,19 @@ const HeroSection = () => {
   const [activeEventIndex, setActiveEventIndex] = useState(0);
   const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null);
 
-  // import { API } from "@/config/api";
   // Fetch upcoming events
-  // useEffect(() => {
-  // const fetchEvents = async () => {
-  //   try {
-  //     const res = ''//await fetch(API.EVENTS_NEAREST);
-  //     if (res.ok) {
-  //       // const data = await res.json();
-  //       // setEvents(data.slice(0, 5));
-  //     }
-  //   } catch (err) { console.error("Failed to fetch events:", err); }
-  // };
-  // fetchEvents();
-  // }, []);
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await fetch(API.EVENTS_NEAREST);
+        if (res.ok) {
+          const data = await res.json();
+          setEvents(data.slice(0, 5));
+        }
+      } catch (err) { console.error("Failed to fetch events:", err); }
+    };
+    fetchEvents();
+  }, []);
 
   const nextImage = useCallback(() => {
     setIsTransitioning(true);
@@ -75,10 +74,10 @@ const HeroSection = () => {
       <div className="absolute bottom-0 left-0 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-gradient-to-tr from-primary/6 to-transparent rounded-full blur-[80px] pointer-events-none" />
 
       <div className="absolute top-5 left-4 sm:left-6 md:left-10 lg:left-16 z-20 flex items-center gap-2.5">
-        <Image height={100} width={100} src='/favicon.png' alt="PICSEL" className="h-9 w-9 rounded-full border border-border/30 shadow-lg" />
+        <Image height={40} width={40} src='/picsel-logo.png' alt="PICSEL" className="h-9 w-9 rounded-full border border-border/30 shadow-lg" />
         <div className="leading-none">
           <span className="block text-sm font-extrabold tracking-tight text-foreground font-heading">PICSEL</span>
-          <span className="block text-[8px] font-medium uppercase tracking-[2px] text-muted-foreground">KDKCE</span>
+          <span className="block text-[9px] font-medium uppercase tracking-[2px] text-muted-foreground">KDKCE</span>
         </div>
       </div>
 
@@ -118,7 +117,7 @@ const HeroSection = () => {
                   <div key={index} className="absolute inset-0 overflow-hidden rounded-2xl sm:rounded-3xl border border-border/20 cursor-pointer"
                     style={{ transform, opacity, zIndex, transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)", boxShadow: isActive ? "0 25px 60px -15px rgba(0,0,0,0.5)" : "none" }}
                     onClick={() => { setIsTransitioning(true); setTimeout(() => { setActiveImageIndex(index); setIsTransitioning(false); }, 300); }}>
-                    <Image height={300} width={300} src={img.src} alt={img.label} className="h-full w-full object-cover" loading={index === 0 ? "eager" : "lazy"} />
+                    <Image height={480} width={600} src={img.src} alt={img.label} className="h-full w-full object-cover" loading={index === 0 ? "eager" : "lazy"} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                     {isActive && !isTransitioning && (
                       <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 animate-[fadeIn_0.5s_ease-out]">
@@ -137,7 +136,7 @@ const HeroSection = () => {
                   onClick={() => { setIsTransitioning(true); setTimeout(() => { setActiveImageIndex(index); setIsTransitioning(false); }, 300); }}
                   className={`relative overflow-hidden rounded-lg sm:rounded-xl border-2 transition-all duration-300 ${index === activeImageIndex ? "border-primary w-16 sm:w-20 h-10 sm:h-12 shadow-glow" : "border-border/30 w-10 sm:w-12 h-10 sm:h-12 opacity-40 hover:opacity-70"
                     }`}>
-                  <Image height={100} width={100} src={img.src} alt={img.label} className="h-full w-full object-cover" loading="lazy" />
+                  <Image height={48} width={80} src={img.src} alt={img.label} className="h-full w-full object-cover" loading="lazy" />
                   {index === activeImageIndex && <div className="absolute bottom-0 left-0 h-0.5 bg-primary animate-[progressFill_4s_linear]" style={{ width: "100%" }} />}
                 </button>
               ))}

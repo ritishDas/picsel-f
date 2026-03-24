@@ -12,7 +12,6 @@ import {
   Phone,
   Trophy,
 } from "lucide-react";
-import picselLogo from "@/assets/picsel-logo.png";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -27,7 +26,7 @@ const mainTabs = [
 const moreLinks = [
   { name: "About Us", path: "/about", icon: Info },
   { name: "Faculty", path: "/faculty", icon: GraduationCap },
-  { name: "Past Events", path: "/xevents", icon: Trophy },
+  { name: "Past Events", path: "/events/past", icon: Trophy },
   { name: "Contact", path: "/contact", icon: Phone },
 ];
 
@@ -56,8 +55,10 @@ const MobileBottomNav = () => {
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-border">
               <div className="flex items-center gap-3">
                 <Image
-                  src={picselLogo}
+                  src="/picsel-logo.png"
                   alt="PICSEL"
+                  width={32}
+                  height={32}
                   className="h-8 w-8 rounded-full"
                 />
                 <div>
